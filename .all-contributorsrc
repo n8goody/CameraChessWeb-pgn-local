@@ -76,6 +76,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "lucastcox",
+      "name": "Lucas Cox",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6495989?v=4",
+      "profile": "https://github.com/lucastcox",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
