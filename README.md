@@ -83,6 +83,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/danispringer"><img src="https://avatars.githubusercontent.com/u/19246409?v=4?s=100" width="100px;" alt="Dani Springer Chess Lessons 🇮🇱"/><br /><sub><b>Dani Springer Chess Lessons 🇮🇱</b></sub></a><br /><a href="https://github.com/Pbatch/CameraChessWeb/commits?author=danispringer" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lucastcox"><img src="https://avatars.githubusercontent.com/u/6495989?v=4?s=100" width="100px;" alt="Lucas Cox"/><br /><sub><b>Lucas Cox</b></sub></a><br /><a href="https://github.com/Pbatch/CameraChessWeb/commits?author=lucastcox" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/squidKid-deluxe"><img src="https://avatars.githubusercontent.com/u/63127872?v=4?s=100" width="100px;" alt="squiddible"/><br /><sub><b>squiddible</b></sub></a><br /><a href="https://github.com/Pbatch/CameraChessWeb/issues?q=author%3AsquidKid-deluxe" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
