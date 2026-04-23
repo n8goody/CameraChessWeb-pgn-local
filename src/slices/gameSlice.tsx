@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux';
 import { Game, RootState } from '../types';
 import { START_FEN } from '../utils/constants';
 import { parseFen, makeFen } from 'chessops/fen';
+import { Move } from 'chessops';
 import { Chess } from 'chessops/chess';
 import { parsePgn } from 'chessops/pgn';
 import { parseSan, makeSan } from 'chessops/san';
-import { makeUci, parseUci, Uci } from 'chessops/util';
+import { makeUci, parseUci } from 'chessops/util';
 
-type HistoryEntry = { move: Uci; san: string };
+type HistoryEntry = { move: Move; san: string };
 
 const initialState: Game = {
   "moves": "",
@@ -132,7 +133,7 @@ export const makeBoard = (game: Game): any => {
   board.playSan = (san: string) => {
     const move = parseSan(board, san);
     if (move) {
-      const entry: HistoryEntry = { move: move as Uci, san };
+      const entry: HistoryEntry = { move: move as Move, san };
       board.history.push(entry);
       board.play(move);
       return move;
