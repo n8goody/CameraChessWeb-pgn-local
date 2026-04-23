@@ -85,6 +85,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "squidKid-deluxe",
+      "name": "squiddible",
+      "avatar_url": "https://avatars.githubusercontent.com/u/63127872?v=4",
+      "profile": "https://github.com/squidKid-deluxe",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
