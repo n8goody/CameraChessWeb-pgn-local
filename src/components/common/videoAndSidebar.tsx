@@ -59,6 +59,18 @@ const VideoAndSidebar = ({ mode }: { mode: Mode }) => {
       "",
       moves
     ].join("\r");
+
+    // --> YOUR INJECTION <--
+    // Push silently to your TrueNAS local file regardless of what Lichess does
+    fetch('/api/pgn', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pgn: pgn })
+    }).catch(err => console.error("Local PGN export failed:", err));
+    // --> END INJECTION <--
+
+    // The rest of the existing Lichess code...
+    
     lichessPushRound(token, broadcastPgn, study.id);
   }, [moves])
 
