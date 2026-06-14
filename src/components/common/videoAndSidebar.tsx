@@ -65,7 +65,7 @@ const VideoAndSidebar = ({ mode }: { mode: Mode }) => {
     fetch('/api/pgn', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pgn: pgn })
+        body: JSON.stringify({ pgn: broadcastPgn })
     }).catch(err => console.error("Local PGN export failed:", err));
     // --> END INJECTION <--
 
