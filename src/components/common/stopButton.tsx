@@ -11,6 +11,10 @@ const StopButton = ({ setPlaying, setText }: { setPlaying: SetBoolean, setText: 
     e.preventDefault();
 
     setPlaying(false);
+    // --> YOUR INJECTION <--
+    fetch('/api/archive', { method: 'POST' })
+        .catch(err => console.error("Archive failed:", err));
+    // --> END INJECTION <--
     dispatch(gameResetMoves());
     dispatch(gameResetFen());
     setText(["Reset to start position"])

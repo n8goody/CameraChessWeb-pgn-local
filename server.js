@@ -23,5 +23,27 @@ app.post('/api/pgn', (req, res) => {
     }
     res.sendStatus(200);
 });
+app.post('/api/archive', (req, res) => {
+    const livePath = '/data/live.pgn';
+    
+    // Check if there is actually a game to save
+    if (fs.existsSync(livePath)) {
+        // Generates a clean timestamp like "2026-06-14_14-30-00"
+        const timestamp = new Date().toISOString().replace(/T/, '_').replace(/:/g, '-').split('.')[0];
+        const archivePath = `/data/game_${timestamp}.pgn`;
+        
+        // fs.rename moves the file, effectively clearing live.pgn for the next game
+        fs.rename(livePath, archivePath, (err) => {
+            if (err) {
+                console.error('Failed to archive game:', err);
+                return res.status(500).send('Archive failed');
+            }
+            console.log(`Game saved to ${archivePath}`);
+            res.sendStatus(200);
+        });
+    } else {
+        res.status(404).send('No live game found to archive.');
+    }
+});
 
 app.listen(8080, () => console.log('ChessCam custom server running on 8080'));
