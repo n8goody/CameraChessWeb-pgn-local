@@ -44,9 +44,9 @@ const VideoAndSidebar = ({ mode }: { mode: Mode }) => {
   const cornersRef = useRef<CornersDict>(corners);
 
   useEffect(() => {
-    if (mode !== "broadcast" || (boardNumber === -1)) { //|| (study === null) ||
-      return;
-    }
+    // if (study === null || mode !== "broadcast" || (boardNumber === -1)) { //|| (study === null) ||
+    //   return;
+    // }
     
     const broadcastPgn = [
       `[Result "*"]`,
@@ -70,7 +70,7 @@ const VideoAndSidebar = ({ mode }: { mode: Mode }) => {
     // --> END INJECTION <--
 
     // The rest of the existing Lichess code...
-    if (study !== null){
+    if (study !== null && mode === "broadcast" && (boardNumber !== -1)){
       lichessPushRound(token, broadcastPgn, study.id);
     }
   }, [moves])
