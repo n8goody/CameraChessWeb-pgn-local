@@ -53,16 +53,25 @@ const gameSlice = createSlice({
       state.error = action.payload;
     },
     gameUpdate(state, action) {
-      const newState: Game = {
-        "start": state.start,
-        "moves": action.payload.moves,
-        "fen": action.payload.fen,
-        "lastMove": action.payload.lastMove,
-        "greedy": action.payload.greedy,
-        "fromOpponent": action.payload.fromOpponent ?? false,
-        "error": action.payload.error ?? null
-      }
-      return newState
+  // If the camera payload has an error, dispatch it to the error state first
+  if (action.payload.error) {
+    state.error = action.payload.error;
+    // The Announcer is listening to this 'error' state, 
+    // so setting it here will trigger your Toast and Sound!
+    return state; 
+  }
+
+  // Otherwise, process the normal update
+  const newState: Game = {
+    "start": state.start,
+    "moves": action.payload.moves,
+    "fen": action.payload.fen,
+    "lastMove": action.payload.lastMove,
+    "greedy": action.payload.greedy,
+    "fromOpponent": action.payload.fromOpponent ?? false,
+    "error": null // Clear any previous error on a successful move
+  };
+  return newState;
     }
   }
 })
@@ -131,30 +140,34 @@ export const makeBoard = (game: Game): any => {
   };
 
   board.playSan = (san: string) => {
-    const move = parseSan(board, san);
-    
-    if (move) {
-      const entry: HistoryEntry = { move: move as Move, san };
-      board.history.push(entry);
-      board.play(move);
-      return move;
+    try {
+      const move = parseSan(board, san);
+      if (move) {
+        const entry: HistoryEntry = { move: move as Move, san };
+        board.history.push(entry);
+        board.play(move);
+        return { move, error: null }; // Success
+      }
+      return { move: null, error: "Illegal Move" }; // Math failed
+    } catch (_e) {
+      return { move: null, error: "Invalid Move Format" };
     }
-    
-    return null;
   };
 
   board.playUci = (uci: string) => {
-    const move = parseUci(uci);
-    
-    if (move) {
-      const san = makeSan(board, move);
-      const entry: HistoryEntry = { move, san };
-      board.history.push(entry);
-      board.play(move);
-      return move;
+    try {
+      const move = parseUci(uci);
+      if (move) {
+        const san = makeSan(board, move);
+        const entry: HistoryEntry = { move, san };
+        board.history.push(entry);
+        board.play(move);
+        return { move, error: null };
+      }
+      return { move: null, error: "Illegal Move" };
+    } catch (_e) {
+      return { move: null, error: "Invalid Move Format" };
     }
-    
-    return null;
   };
 
   board.undo = () => {

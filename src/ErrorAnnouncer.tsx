@@ -1,30 +1,52 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import { RootState } from './types'; // Adjust this import path if needed
+import { RootState } from '../types';
+import { gameSetError } from '../slices/gameSlice';
 
 export const ErrorAnnouncer = () => {
-  // Listen to the error state in Redux
+  // Pull the current error state from Redux
   const error = useSelector((state: RootState) => state.game.error);
+  
+  // Initialize the dispatch hook to talk back to Redux
+  const dispatch = useDispatch();
+  
+  // Reference the hidden audio element
+  const audioPlayerRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // Every time 'error' changes, if it is not null, trigger the alarm!
+    // Only run if there is an actual error message
     if (error) {
       console.warn("Camera dispatched error:", error);
-      
-      // 1. Play the sound
-      const audio = new Audio('/error.mp3');
-      audio.volume = 1.0;
-      audio.play().catch(e => console.error("Audio blocked by browser:", e));
-      
-      // 2. Show the sleek Toast notification
+
+      // Play the audio
+      if (audioPlayerRef.current) {
+        audioPlayerRef.current.currentTime = 0;
+        audioPlayerRef.current.volume = 1.0;
+        audioPlayerRef.current.play().catch(e => 
+          console.error("Audio blocked by browser policy:", e)
+        );
+      }
+
+      // Show the modern toast notification
       toast.error(`Illegal Move: ${error}`, {
         duration: 4000,
-        style: { background: '#333', color: '#fff' }
+        style: { 
+          background: '#333', 
+          color: '#fff',
+          borderRadius: '10px',
+          padding: '16px'
+        }
       });
-    }
-  }, [error]); // This tells React to run this effect only when 'error' changes
 
-  // This component doesn't render any visible HTML
-  return null; 
+      // Clear the error in Redux immediately so the state is 
+      // ready to catch the next illegal move
+      dispatch(gameSetError(null));
+    }
+  }, [error, dispatch]);
+
+  return (
+    // Invisible audio player; ensure error.mp3 is in your public/ folder
+    <audio ref={audioPlayerRef} src="/error.mp3" preload="auto" />
+  );
 };
