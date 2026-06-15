@@ -8,8 +8,6 @@ import { Chess } from 'chessops/chess';
 import { parsePgn } from 'chessops/pgn';
 import { parseSan, makeSan } from 'chessops/san';
 import { makeUci, parseUci } from 'chessops/util';
-import toast from 'react-hot-toast';
-const illegalMoveSound = new Audio('/error.mp3');
 
 type HistoryEntry = { move: Move; san: string };
 
