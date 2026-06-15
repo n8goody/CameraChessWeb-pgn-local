@@ -1,7 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { userSelect } from "../../slices/userSlice";
 
-const NavButton = ({ text, tokenRequired }: { text: string, tokenRequired: boolean }) => {
+interface NavButtonProps {
+  text: string;
+  tokenRequired: boolean;
+  path?: string; 
+}
+
+// 1. We now pull 'path' into the component and apply the NavButtonProps type
+const NavButton = ({ text, tokenRequired, path }: NavButtonProps) => {
   const navigate = useNavigate();
   const token = userSelect().token;
 
@@ -11,7 +18,10 @@ const NavButton = ({ text, tokenRequired }: { text: string, tokenRequired: boole
     if (noNavigate) {
       return;
     }
-    navigate(`/${text.toLowerCase()}`);
+    
+    // 2. This will now successfully read the path property!
+    const routeTarget = path ? path : text.toLowerCase();
+    navigate(`/${routeTarget}`);
   }
 
   return (
