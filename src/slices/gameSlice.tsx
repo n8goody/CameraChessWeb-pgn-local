@@ -52,7 +52,6 @@ const gameSlice = createSlice({
     },
     gameSetError(state, action) {
       state.error = action.payload;
-      illegalMoveSound.play().catch(e => console.error("Audio play blocked by browser:", e));
     },
     gameUpdate(state, action) {
       const newState: Game = {
@@ -134,23 +133,46 @@ export const makeBoard = (game: Game): any => {
 
   board.playSan = (san: string) => {
     const move = parseSan(board, san);
-    if (move) {
-      const entry: HistoryEntry = { move: move as Move, san };
-      board.history.push(entry);
-      board.play(move);
-      return move;
-    }
+    try{
+      if (move) {
+        const entry: HistoryEntry = { move: move as Move, san };
+        board.history.push(entry);
+        board.play(move);
+        return move;
+      }
+    } catch (error){
+      // --> YOUR INJECTION <--
+    console.warn("Illegal SAN move rejected by engine:", san);
+    illegalMoveSound.play().catch(e => console.error("Audio blocked:", e));
+    alert(`Illegal move detected: ${san}. Please fix the physical board.`);
+    return null;
+    // --> END INJECTION <--
+      
+    }  
     return null;
   };
 
   board.playUci = (uci: string) => {
     const move = parseUci(uci);
-    if (move) {
-      const san = makeSan(board, move);
-      const entry: HistoryEntry = { move, san };
-      board.history.push(entry);
-      board.play(move);
-      return move;
+    try{
+      if (move) {
+        const san = makeSan(board, move);
+        const entry: HistoryEntry = { move, san };
+        board.history.push(entry);
+        board.play(move);
+        return move;
+      }
+    } catch (error){
+      // --> YOUR INJECTION <--
+      console.warn("Illegal UCI move rejected by engine:", uci);
+      
+      // 1. Play the sound
+      illegalMoveSound.play().catch(e => console.error("Audio blocked:", e));
+      
+      // 2. Show the alert
+      alert("Illegal move detected by the camera! Please fix the physical board.");
+      
+      return null;
     }
     return null;
   };
