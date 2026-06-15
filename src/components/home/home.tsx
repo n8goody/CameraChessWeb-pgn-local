@@ -11,12 +11,12 @@ const Home = () => {
           <NavButton text="Upload" tokenRequired={false} />
         </div> */}
         <div className="col">
-          <NavButton text="Record" tokenRequired={false} />
+          <NavButton text="Record & Broadcast to local" tokenRequired={false} />
         </div>
       </div>
       <div className="row m-2">
         <div className="col">
-          <NavButton text="Broadcast" tokenRequired={true} />
+          <NavButton text="Broadcast to LiChess & local" tokenRequired={true} />
         </div>
         {/* <div className="col">
           <NavButton text="Play" tokenRequired={true} />
