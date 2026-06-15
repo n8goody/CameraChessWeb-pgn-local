@@ -140,7 +140,7 @@ export const makeBoard = (game: Game): any => {
         board.play(move);
         return move;
       }
-    } catch (error){
+    } catch (_error){
       // --> YOUR INJECTION <--
     console.warn("Illegal SAN move rejected by engine:", san);
     illegalMoveSound.play().catch(e => console.error("Audio blocked:", e));
@@ -162,7 +162,7 @@ export const makeBoard = (game: Game): any => {
         board.play(move);
         return move;
       }
-    } catch (error){
+    } catch (_error){
       // --> YOUR INJECTION <--
       console.warn("Illegal UCI move rejected by engine:", uci);
       
