@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import { RootState } from '../types';
-import { gameSetError } from '../slices/gameSlice';
+import { RootState } from './types';
+import { gameSetError } from './slices/gameSlice';
 
 export const ErrorAnnouncer = () => {
   // Pull the current error state from Redux
