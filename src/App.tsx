@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { lichessTrySetUser } from "./utils/lichess";
 import { UnknownAction } from "@reduxjs/toolkit";
 import { Toast } from "./components/common";
+import { Toaster } from 'react-hot-toast';
+import { ErrorAnnouncer } from './ErrorAnnouncer';
 
 const App = () => {
   const dispatch: Dispatch<UnknownAction> = useDispatch();
@@ -31,6 +33,9 @@ const App = () => {
 
   return (
     <>
+      <Toaster position="top-center" />
+      <Toaster />
+      <ErrorAnnouncer />
       <Toast />
       {!loading && <Outlet context={modelRefs} />}
     </>
