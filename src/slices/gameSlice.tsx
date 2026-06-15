@@ -8,6 +8,7 @@ import { Chess } from 'chessops/chess';
 import { parsePgn } from 'chessops/pgn';
 import { parseSan, makeSan } from 'chessops/san';
 import { makeUci, parseUci } from 'chessops/util';
+const illegalMoveSound = new Audio('/error.mp3');
 
 type HistoryEntry = { move: Move; san: string };
 
@@ -51,6 +52,7 @@ const gameSlice = createSlice({
     },
     gameSetError(state, action) {
       state.error = action.payload;
+      illegalMoveSound.play().catch(e => console.error("Audio play blocked by browser:", e));
     },
     gameUpdate(state, action) {
       const newState: Game = {

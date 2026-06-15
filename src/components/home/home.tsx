@@ -7,9 +7,9 @@ const Home = () => {
     <div className="container-flex d-flex overflow-hidden h-100 flex-column p-0 m-0 text-center text-white bg-dark">
       <Header />
       <div className="row m-2">
-        <div className="col">
+        {/* <div className="col">
           <NavButton text="Upload" tokenRequired={false} />
-        </div>
+        </div> */}
         <div className="col">
           <NavButton text="Record" tokenRequired={false} />
         </div>
@@ -18,14 +18,14 @@ const Home = () => {
         <div className="col">
           <NavButton text="Broadcast" tokenRequired={true} />
         </div>
-        <div className="col">
+        {/* <div className="col">
           <NavButton text="Play" tokenRequired={true} />
-        </div>
+        </div> */}
       </div>
       <div className="row m-2">
-        <div className="col">
+        {/* <div className="col">
           <NavButton text="Export" tokenRequired={true} />
-        </div>
+        </div> */}
         <div className="col">
           <NavButton text="FAQ" tokenRequired={false} />
         </div>
