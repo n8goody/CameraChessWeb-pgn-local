@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
-import { RootState } from '../types'; // Adjust this import path if needed
+import { RootState } from './types'; // Adjust this import path if needed
 
 export const ErrorAnnouncer = () => {
   // Listen to the error state in Redux
